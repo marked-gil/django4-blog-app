@@ -3,6 +3,15 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class PublishedManager(models.Manager):
+    """
+    Custom manager to retrieve posts with PUBLISHED status
+    """
+    def get_queryset(self):
+        return super().get_queryset()\
+            .filter(status=Post.Status.PUBLISHED)
+
+
 class Post(models.Model):
 
     class Status(models.TextChoices):
@@ -38,10 +47,12 @@ class Post(models.Model):
                               choices=Status.choices,
                               default=Status.DRAFT)
 
+    objects = models.Manager() # default manager
+    published = PublishedManager() # our custom manager
+    
     class Meta:
         # specifies the ordering of posts in descending order (hyphen before field name)
         ordering = ['-publish']
-        
         # Adds an index for the publish field in descending order;
         # This will improve performance for queries filtering or ordering results by this field.
         indexes = [

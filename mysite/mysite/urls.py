@@ -22,5 +22,8 @@ urlpatterns = [
 ]
 
 """
+The new URL pattern defined with 'include' refers to the URL patterns defined in the blog application.
+You include these patterns under the namespace 'blog'.
 Namespaces have to be unique across your entire project.
+You will refer to your blog URLs easily by using the namespace followed by a colon & the URL name.
 """

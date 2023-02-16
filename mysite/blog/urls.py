@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
 
-# Defines an application NAMESPACE
-# Allows you to organize URLS by application
+# Defines an application NAMESPACE with app_name variable.
+# Allows you to organize URLS by application & use the name when referring to them.
 app_name = 'blog'
 
 urlpatterns = [

@@ -1,0 +1,26 @@
+<!-- to inherit from blog/base.html template -->
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+    <h1>My Blog</h1>
+
+    {% for post in posts %}
+        <h2>
+            <!-- url template tag allows to build URLs dynamically by their name. -->
+            <!-- blog:post_detail refers to post_detail URL in the blog namespace. -->
+            <!-- post.id passed to build the URL for each post. -->
+            <a href="{% url 'blog:post_detail' post.id %}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p class="date">
+            Published {{ post.publish }} by {{ post.author }}
+        </p>
+        <!-- filter 'truncatewords' - truncates the value to the specified number of words. -->
+        <!-- filter 'linebreaks' - converts the output into HTML line breaks -->
+        {{ post.body|truncatewords:30|linebreaks }}
+    {% endfor %}
+
+{% endblock %}

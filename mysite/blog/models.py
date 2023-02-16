@@ -29,7 +29,9 @@ class Post(models.Model):
     # SlugField translates into VARCHAR column in SQL database
     # slug is a short label that contains only letters, numbers, underscores, and hyphens
     slug = models.SlugField(max_length=250)
-    #
+    # Defines a many-to-one relationship between Post and User
+    # Django will create a foreign key in the database using PK of User
+    # related_name - name of the reverse relationship, from User to Post (eg, user.blog_posts)
     author = models.ForeignKey(User, 
                                on_delete=models.CASCADE,
                                related_name='blog_posts')

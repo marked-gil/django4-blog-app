@@ -1,0 +1,30 @@
+<!--
+Loads the static template tags provided by django.contrib.staticfiles application 
+(contained in INSTALLED_APPS setting). 
+After loading them, you can use the {% static %} template tag in this template.
+-->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{% static "css/blog.css" %}">
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="sidebar">
+            <h2>My Blog</h2>
+            <p>This is my blog.</p>
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

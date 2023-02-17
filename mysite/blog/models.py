@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class PublishedManager(models.Manager):
@@ -67,3 +68,14 @@ class Post(models.Model):
         Django will use this method to display the name of the object in many places.
         """
         return self.title
+    
+    def get_absolute_url(self):
+        """
+        Returns a canonical URL for the object (preferred URL for a resource).
+        It allows to specify the URL for the master copy of a page.
+        reverse() - builds URL dynamically using URL name.
+        blog:post_detail - can be used globally in the project to refer to post detail URL.
+        args=[self.id] - passes the id as required argument to retrieve blog post.
+        (see post detail URLs in the templates)
+        """
+        return reverse('blog:post_detail', args=[self.id])

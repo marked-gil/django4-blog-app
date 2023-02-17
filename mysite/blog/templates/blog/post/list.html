@@ -11,7 +11,7 @@
             <!-- url template tag allows to build URLs dynamically by their name.
             blog:post_detail refers to post_detail URL in the blog namespace.
             post.id passed to build the URL for each post. -->
-            <!-- <a href="{% url 'blog:post_detail' post.id %}"> -->
+            {% comment %} <a href="{% url 'blog:post_detail' post.id %}"> {% endcomment %}
             
             <!-- Using canonical URL for each post detail (See Post model)-->
             <a href="{{ post.get_absolute_url }}">

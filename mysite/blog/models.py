@@ -28,11 +28,12 @@ class Post(models.Model):
     # CharField translates into VARCHAR column in SQL database
     title = models.CharField(max_length=250)
     # SlugField translates into VARCHAR column in SQL database
-    # slug is a short label that contains only letters, numbers, underscores, and hyphens
-    slug = models.SlugField(max_length=250)
+    # slug is a short label that contains only letters, numbers, underscores, & hyphens
+    # Ensures slugs are unique for the publication date
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
     # Defines a many-to-one relationship between Post and User
     # Django will create a foreign key in the database using PK of User
-    # related_name - name of the reverse relationship, from User to Post (eg, user.blog_posts)
+    # related_name - name of reverse relationship, from User to Post (eg, user.blog_posts)
     author = models.ForeignKey(User, 
                                on_delete=models.CASCADE,
                                related_name='blog_posts')
@@ -57,7 +58,7 @@ class Post(models.Model):
         # specifies the ordering of posts in descending order (hyphen before field name)
         ordering = ['-publish']
         # Adds an index for the publish field in descending order;
-        # This will improve performance for queries filtering or ordering results by this field.
+        # Will improve performance for queries filtering or ordering results by this field.
         indexes = [
             models.Index(fields=['-publish']),
         ]
@@ -75,7 +76,10 @@ class Post(models.Model):
         It allows to specify the URL for the master copy of a page.
         reverse() - builds URL dynamically using URL name.
         blog:post_detail - can be used globally in the project to refer to post detail URL.
-        args=[self.id] - passes the id as required argument to retrieve blog post.
+        args=[parameters] - passes parameters as required arguments to retrieve a blog post.
         (see post detail URLs in the templates)
         """
-        return reverse('blog:post_detail', args=[self.id])
+        return reverse('blog:post_detail', args=[self.publish.year, 
+                                                 self.publish.month, 
+                                                 self.publish.day, 
+                                                 self.slug])

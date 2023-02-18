@@ -25,5 +25,9 @@
         <!-- filter 'linebreaks' - converts the output into HTML line breaks -->
         {{ post.body|truncatewords:30|linebreaks }}
     {% endfor %}
+    
+    <!-- 'include' template tag loads given template -->
+    <!-- 'with' - to pass additional context variables to template -->
+    {% include "pagination.html" with page=posts %}
 
 {% endblock %}
